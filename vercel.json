@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js", // Ganti dengan nama file server Anda
-      "use": "@vercel/node" // Gunakan jika Anda memiliki aplikasi Node.js
+      "src": "server.js",
+      "use": "@now/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/server.js" // Ganti dengan nama file server Anda
+      "dest": "server.js"
     }
   ]
 }
