@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const fetch = require('node-fetch');
 
 const app = express();
 
@@ -10,18 +9,18 @@ app.use(cors());
 app.get('/:url(*)', async (req, res) => {
   const targetUrl = req.params.url;
   try {
+    // Menggunakan dynamic import() untuk mengimpor modul node-fetch
+    const { default: fetch } = await import('node-fetch');
+    
+    // Mengambil header dari permintaan asli dan meneruskannya ke permintaan ke server tujuan
     const response = await fetch(targetUrl, {
       headers: {
-        ...req.headers,
-        host: new URL(targetUrl).host
+        ...req.headers, // Meneruskan semua header dari permintaan asli
+        host: new URL(targetUrl).host // Menetapkan host dari target URL sebagai bagian dari header
       }
     });
 
-    // Menetapkan header CORS di respons
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
+    // Mendapatkan data dari respons dan mengirimkannya kembali ke klien
     const data = await response.json();
     res.json(data);
   } catch (error) {
