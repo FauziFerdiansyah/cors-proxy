@@ -44,7 +44,7 @@ app.get('/:url(*)', allowCors(async (req, res) => {
   }
 }));
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server ini berjalan di http://localhost:${port}`);
 });
